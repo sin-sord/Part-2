@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Plane : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Plane : MonoBehaviour
     Vector2 currentPosition;
     Rigidbody2D rigidbody;
     public float speed = 1;
+    public AnimationCurve landing;
+    float landingTimer;
 
     void Start()
     {
@@ -40,6 +43,17 @@ public class Plane : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            landingTimer += 0.4f * Time.deltaTime;  //interpolation
+            float interpolation = landing.Evaluate(landingTimer);  //making timer bigger every frame, if x value increases it finds the y value.
+            if(transform.localScale.z < 0.1f)
+            {
+                Destroy(gameObject);
+            }
+            transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, interpolation);  // this will decrease the size of the plane when it lands
+        }
         lineRenderer.SetPosition(0, transform.position);   // make sure current point is moving
         if(points.Count > 0)
         {
@@ -51,6 +65,7 @@ public class Plane : MonoBehaviour
                 {
                     lineRenderer.SetPosition(i, lineRenderer.GetPosition(i+1));   //shifting the whole of the array and stuffing it in the last point
                 }
+                if(lineRenderer.positionCount != 0)
                 lineRenderer.positionCount--;
             }
         }
