@@ -78,8 +78,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &5058301177643030265
@@ -206,6 +206,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Player: {fileID: 7899823267510139758}
+  prefabSprite:
+  - {fileID: 21300000, guid: c73a14ae579ec794db786a6cb7b74e20, type: 3}
+  - {fileID: 21300000, guid: 24c052ba7e2db304696a436c1d715f04, type: 3}
+  - {fileID: 21300000, guid: 6bf9530ecd83c664099aa71dd0a5223e, type: 3}
+  - {fileID: 21300000, guid: 3c91ca5ea46cd97409cdc7acb86e3523, type: 3}
+  landingPlane: 0
 --- !u!120 &3871408778026274428
 LineRenderer:
   serializedVersion: 2

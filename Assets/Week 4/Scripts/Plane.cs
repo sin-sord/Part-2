@@ -14,12 +14,15 @@ public class Plane : MonoBehaviour
     LineRenderer lineRenderer;
     Vector2 currentPosition;
     Rigidbody2D rigidbody;
-    public float speed = Random.Range(1, 3);
+    public float speed;
     public AnimationCurve landing;
     float landingTimer;
 
     public GameObject Player;
     SpriteRenderer spriteRenderer;
+    public Sprite[] prefabSprite;
+
+    public bool landingPlane = false;
 
     void Start()
     {
@@ -28,7 +31,10 @@ public class Plane : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         rigidbody = GetComponent<Rigidbody2D>();
 
+        GetComponent<SpriteRenderer>().sprite = prefabSprite[Random.Range(0, 5)];
+        prefabSprite = new Sprite[Random.Range(0, 5)];
         spriteRenderer = GetComponent<SpriteRenderer>();
+        speed = Random.Range(1, 3);
     }
 
     void FixedUpdate()  //rotate and move plane to point
@@ -48,14 +54,15 @@ public class Plane : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Space))
+        if (landingPlane == true)
         {
-            landingTimer += 0.4f * Time.deltaTime;  //interpolation
+            landingTimer += 0.8f * Time.deltaTime;  //interpolation
             float interpolation = landing.Evaluate(landingTimer);  //making timer bigger every frame, if x value increases it finds the y value.
             if(transform.localScale.z < 0.1f)
             {
                 Destroy(gameObject);
             }
+            Debug.Log("plane small");
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, interpolation);  // this will decrease the size of the plane when it lands
         }
         lineRenderer.SetPosition(0, transform.position);   // make sure current point is moving
@@ -121,12 +128,13 @@ public class Plane : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
    
     {
-        float smash = Vector3.Distance(currentPosition, collision.transform.position);   
-        if(smash > 0.01f)
-        {
+       float smash = Vector3.Distance(currentPosition, collision.transform.position);   
+       if(smash > 0.01f)
+       {
             Destroy(gameObject);
             Debug.Log("Planes collided");
-        } 
+       } 
+             
     }
 
 
@@ -138,5 +146,6 @@ public class Plane : MonoBehaviour
             Debug.Log("Change to white");
         }
     }
+
 
 }

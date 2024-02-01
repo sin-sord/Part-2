@@ -5,16 +5,18 @@ using UnityEngine;
 public class spawnRandom : MonoBehaviour
 {
     public GameObject planePrefab;
-    public Sprite[] prefabSprite;
+    
     Vector3 spawnPosition;
     public float timeSpawn = Random.Range(1, 5);
+    public float randomTime = Random.Range(1, 5);
+    public float spawnZ = Random.Range(1, 5);
     //SpriteRenderer planeSprite;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        planePrefab.GetComponent<SpriteRenderer>().sprite = prefabSprite[Random.Range(0, 5)];
+        randomTime = Random.Range(1, 5);
+        timeSpawn = Random.Range(1, 5);
     }
 
     // Update is called once per frame
@@ -22,13 +24,13 @@ public class spawnRandom : MonoBehaviour
     {
         timeSpawn += 1 * Time.deltaTime;
 
-        if (timeSpawn > 5) 
+        if (timeSpawn > randomTime) 
         {
             timeSpawn = 0;
             Vector3 spawnPosition = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
 
-            prefabSprite = new Sprite[Random.Range(0, 5)];
-            Instantiate(planePrefab, spawnPosition, Quaternion.Euler(0, 0, 0));
+            
+            Instantiate(planePrefab, spawnPosition, Quaternion.Euler(0, 0, Random.Range(-180, 180)));
             
         }
 
