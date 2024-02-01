@@ -29,7 +29,7 @@ public class spawnRandom : MonoBehaviour
 
             prefabSprite = new Sprite[Random.Range(0, 5)];
             Instantiate(planePrefab, spawnPosition, Quaternion.Euler(0, 0, 0));
-                     
+            
         }
 
     }
