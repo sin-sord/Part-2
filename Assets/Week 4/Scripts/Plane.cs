@@ -115,11 +115,11 @@ public class Plane : MonoBehaviour
         {
             spriteRenderer.color = Color.red;
             Debug.Log("Change to red");
-        }  
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-
+   
     {
         float smash = Vector3.Distance(currentPosition, collision.transform.position);   
         if(smash > 0.01f)
@@ -127,10 +127,10 @@ public class Plane : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("Planes collided");
         } 
-      }
+    }
 
 
-    private void OnTriggerExit(Collider collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (Player.activeInHierarchy)
         {
@@ -138,7 +138,5 @@ public class Plane : MonoBehaviour
             Debug.Log("Change to white");
         }
     }
-
-   
 
 }

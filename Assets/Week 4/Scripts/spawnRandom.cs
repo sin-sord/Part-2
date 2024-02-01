@@ -7,7 +7,7 @@ public class spawnRandom : MonoBehaviour
     public GameObject planePrefab;
     public Sprite[] prefabSprite;
     Vector3 spawnPosition;
-    public float timeSpawn = 0;
+    public float timeSpawn = Random.Range(1, 5);
     //SpriteRenderer planeSprite;
 
     // Start is called before the first frame update
