@@ -18,6 +18,7 @@ public class Plane : MonoBehaviour
     public AnimationCurve landing;
     float landingTimer;
 
+
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -25,8 +26,9 @@ public class Plane : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         rigidbody = GetComponent<Rigidbody2D>();
 
+     
     }
-    
+
     void FixedUpdate()  //rotate and move plane to point
 
     {
@@ -71,6 +73,7 @@ public class Plane : MonoBehaviour
         }
     }
 
+
     void OnMouseDown()
     {
 
@@ -80,6 +83,7 @@ public class Plane : MonoBehaviour
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, transform.position);
     }
+
 
     void OnMouseDrag()  //draws a line
     {
@@ -95,5 +99,5 @@ public class Plane : MonoBehaviour
         }
 
     }
-
+   
 }
