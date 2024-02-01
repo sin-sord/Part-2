@@ -14,10 +14,12 @@ public class Plane : MonoBehaviour
     LineRenderer lineRenderer;
     Vector2 currentPosition;
     Rigidbody2D rigidbody;
-    public float speed = 1;
+    public float speed = Random.Range(1, 3);
     public AnimationCurve landing;
     float landingTimer;
 
+    public GameObject Player;
+    SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class Plane : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         rigidbody = GetComponent<Rigidbody2D>();
 
-     
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()  //rotate and move plane to point
@@ -99,5 +101,44 @@ public class Plane : MonoBehaviour
         }
 
     }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        float gap = Vector3.Distance(currentPosition, collision.transform.position);
+        if (gap > 0.15f)
+            if (Player.activeInHierarchy)
+        {
+            spriteRenderer.color = Color.red;
+            Debug.Log("Change to red");
+        }  
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+
+    {
+        float smash = Vector3.Distance(currentPosition, collision.transform.position);   
+        if(smash > 0.01f)
+        {
+            Destroy(gameObject);
+            Debug.Log("Planes collided");
+        } 
+      }
+
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (Player.activeInHierarchy)
+        {
+            spriteRenderer.color = Color.white;
+            Debug.Log("Change to white");
+        }
+    }
+
    
+
 }
