@@ -50,6 +50,11 @@ public class Knight : MonoBehaviour
             
         }
         animator.SetFloat("Movement", movement.magnitude);  // this allows animation to happen when the knight is moving using the float in animator
+
+        if (Input.GetMouseButtonDown(1))  // if right-click on mouse play "attack" animation
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 
     private void OnMouseDown()
@@ -57,8 +62,9 @@ public class Knight : MonoBehaviour
         if (isDead) return;  //  return means stop doing this function, if is dead = true then stop moving
         clickingOnSelf = true;
         SendMessage("TakeDamage", 1);
-   
+
     }
+
 
     private void OnMouseUp()
     {
