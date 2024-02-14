@@ -20,7 +20,7 @@ public class SceneLoadMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        int nextSceneIndex = (currentSceneIndex -1) % SceneManager.sceneCountInBuildSettings;
         SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
 
     }
