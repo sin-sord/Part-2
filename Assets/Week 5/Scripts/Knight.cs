@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class Knight : MonoBehaviour
@@ -44,7 +45,7 @@ public class Knight : MonoBehaviour
     void Update()
     {
         if (isDead) return;  //  return means stop doing this function, if is dead = true then stop moving
-        if (Input.GetMouseButtonDown(0) && !clickingOnSelf)  // if the left-click on mouse is pressed and is not clicking on itself
+        if (Input.GetMouseButtonDown(0) && !clickingOnSelf && !EventSystem.current.IsPointerOverGameObject())  // if the left-click on mouse is pressed and is not clicking on itself & if the UI is pressed the knight won't go to where the mouse pressed
         {
             destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);  // move the knight to the location of where the mouse was pressed
             
