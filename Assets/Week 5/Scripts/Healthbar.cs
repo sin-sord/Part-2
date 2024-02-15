@@ -11,7 +11,6 @@ public class Healthbar : MonoBehaviour
     {
         slider.value = PlayerPrefs.GetFloat("HealthStat", slider.value);
         SendMessage("HealthValue", slider.value, SendMessageOptions.DontRequireReceiver);
-
     }
 
     public void TakeDamage(float damage)
