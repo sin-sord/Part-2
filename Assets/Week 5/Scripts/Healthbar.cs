@@ -9,19 +9,20 @@ public class Healthbar : MonoBehaviour
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat("HealthStat", slider.value);
-        SendMessage("HealthValue", slider.value, SendMessageOptions.DontRequireReceiver);
+     //   slider.value = PlayerPrefs.GetFloat("HealthStat", slider.value);
+    //    SendMessage("HealthValue", slider.value, SendMessageOptions.DontRequireReceiver);
     }
 
     public void TakeDamage(float damage)
     {
         slider.value -= damage;
-        HealthSave();
+     //   HealthSave();
     }
 
-    public void HealthSave()
+    public void HealthSave(float healthSet)
     {
-        PlayerPrefs.SetFloat("HealthStat", slider.value);
+      //  PlayerPrefs.SetFloat("HealthStat", slider.value);
+      slider.value = healthSet;
     }
 
 }

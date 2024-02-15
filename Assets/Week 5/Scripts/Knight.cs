@@ -22,8 +22,11 @@ public class Knight : MonoBehaviour
     {
         RB=GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        health = maxHealth;
-        
+        health = PlayerPrefs.GetFloat("HealthStat", maxHealth);
+   //   health = maxHealth;
+        StatusUpdate();
+
+        SendMessage("HealthSave", health, SendMessageOptions.DontRequireReceiver);
     }
 
 
@@ -56,12 +59,15 @@ public class Knight : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
+
+
     }
 
     private void OnMouseDown()
     {
         if (isDead) return;  //  return means stop doing this function, if is dead = true then stop moving
         clickingOnSelf = true;
+        animator.SetTrigger("TakeDamage");
         SendMessage("TakeDamage", 1);
 
     }
@@ -76,15 +82,24 @@ public class Knight : MonoBehaviour
     {
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
+        StatusUpdate();
+        PlayerPrefs.SetFloat("HealthStat", health);
+
+    }
+
+    public void StatusUpdate()
+    {
         if (health <= 0)
         {
-            isDead = true;
+            
             animator.SetTrigger("Death");
+            isDead = true;
         }
-        else 
+        else
         {
             isDead = false;
             animator.SetTrigger("TakeDamage");  // calls on the trigger set in perameter of animator window, when the mouse is down the animation plays
         }
     }
+
 }
