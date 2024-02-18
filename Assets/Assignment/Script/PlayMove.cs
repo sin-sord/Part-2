@@ -19,6 +19,9 @@ public class PlayMove : MonoBehaviour
 
     bool death = false;
 
+    private int score = 0;
+    public Text scoreText;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,12 +32,14 @@ public class PlayMove : MonoBehaviour
 
      void Update()
     {
+        scoreText.text = "Score: " + score;
+
         if (death) return;
         if (Input.GetMouseButtonDown(0))   // if the left mouse button is pressed then have the player move to where the mouse clicked.
         {
             guidePlayer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Debug.Log("Robot move");
+  //          Debug.Log("Robot move");
         }
 
         Anim.SetFloat("Movement", movePlayer.magnitude);  // plays the movement animation clip
@@ -47,13 +52,13 @@ public class PlayMove : MonoBehaviour
         if (movePlayer.magnitude < 0.1)  // if the players magnitude is less that 0.1 then stop moving
         {
             movePlayer = Vector2.zero;
-            Debug.Log("Robot stop");
+      //      Debug.Log("Robot stop");
         }
 
         rb.MovePosition(rb.position + movePlayer.normalized * speed * Time.deltaTime);
 
         float rotate = Mathf.Atan2(movePlayer.y, movePlayer.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(rotate, Vector3.forward);
+        transform.rotation = Quaternion.Euler(0,0,rotate);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,6 +68,13 @@ public class PlayMove : MonoBehaviour
         {
             SendMessage("HurtPlayer", 1);
             Anim.SetTrigger("Hurt");
+        }
+
+        if (collision.gameObject.tag == "coin") 
+        {
+            scoreCoin(collision);
+     //       SendMessage("scoreCoin", SendMessageOptions.DontRequireReceiver);
+            Debug.Log("collected");
         }
 
     }
@@ -77,6 +89,15 @@ public class PlayMove : MonoBehaviour
             death = true;
             Anim.SetTrigger("Dead");
             }
+    }
+
+    public void scoreCoin(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "coin")
+        {
+            Destroy(collision.gameObject);
+            score++;
+        }
     }
 
 }

@@ -7,6 +7,7 @@ TagManager:
   - robot
   - wall
   - thorn
+  - coin
   layers:
   - Default
   - TransparentFX
