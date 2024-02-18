@@ -35,12 +35,11 @@ public class PlayMove : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
 
-        if (death) return;
+        if (death) return;  // if death occurs then stop this function
         if (Input.GetMouseButtonDown(0))   // if the left mouse button is pressed then have the player move to where the mouse clicked.
         {
-            guidePlayer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            guidePlayer = Camera.main.ScreenToWorldPoint(Input.mousePosition);  // the guide is where the mouse is pressed on the screen
 
-  //          Debug.Log("Robot move");
         }
 
         Anim.SetFloat("Movement", movePlayer.magnitude);  // plays the movement animation clip
@@ -48,17 +47,16 @@ public class PlayMove : MonoBehaviour
 
     private void FixedUpdate()   // Movement for the player
     {
-        if (death) return;
+        if (death) return;  // if death occurs then stop this function
         movePlayer = guidePlayer - (Vector2)transform.position;
         if (movePlayer.magnitude < 0.1)  // if the players magnitude is less that 0.1 then stop moving
         {
             movePlayer = Vector2.zero;
-      //      Debug.Log("Robot stop");
         }
 
-        rb.MovePosition(rb.position + movePlayer.normalized * speed * Time.deltaTime);
+        rb.MovePosition(rb.position + movePlayer.normalized * speed * Time.deltaTime);  // moves the rigidbody to where the mouse pressed.
 
-        float rotate = Mathf.Atan2(movePlayer.y, movePlayer.x) * Mathf.Rad2Deg;
+        float rotate = Mathf.Atan2(movePlayer.y, movePlayer.x) * Mathf.Rad2Deg;  // allows for the robot to rotate and move to the direction where the mouse was pressed.
         transform.rotation = Quaternion.Euler(0,0,rotate);
     }
 
@@ -67,14 +65,13 @@ public class PlayMove : MonoBehaviour
      
         if (collision.gameObject.tag == "thorn" && !death) // if the player touches a thron and is not dead they continue the hurt animation
         {
-            SendMessage("HurtPlayer", 1);
+            SendMessage("HurtPlayer", 1);  // sends a message that when the player collides with a spike then take damage
             Anim.SetTrigger("Hurt");
         }
 
         if (collision.gameObject.tag == "coin") 
         {
-            scoreCoin(collision);
-     //       SendMessage("scoreCoin", SendMessageOptions.DontRequireReceiver);
+            scoreCoin(collision);  // if the player collides with a coin then add 1 score point
             Debug.Log("collected");
         }
 
@@ -89,6 +86,7 @@ public class PlayMove : MonoBehaviour
             {
             death = true;
             Anim.SetTrigger("Dead");
+            // if the player is killed then go to the next scene, Game Over
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
             SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
@@ -103,7 +101,8 @@ public class PlayMove : MonoBehaviour
             score++;
             if (score == 5)
             {
-                    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                // if the player collects all coins then go to the next scene, Game Over
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
                     int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
                     SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
                 

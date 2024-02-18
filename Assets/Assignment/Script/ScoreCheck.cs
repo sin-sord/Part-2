@@ -10,18 +10,14 @@ public class ScoreCheck : MonoBehaviour
     private int score = 0;
     public Text scoreText;
 
-    void Score(Collider2D collision)
+    void Score(Collider2D collision) 
     {
         scoreText.text = "Score: " + score;
-        /*
-                if(Input.GetKeyUp(KeyCode.Space))
-                {
-                    score++;
-                }*/
-        if (collision.gameObject.tag == "coin")
+       
+        if (collision.gameObject.tag == "coin")  // if collision happens with the tag "coin" destroy that object and add 1 point to the score
         {
-            Destroy(collision.gameObject);
-            score++;
+            Destroy(collision.gameObject);  // destroy the coin
+            score++;  // a 1 point to the score
         }
     }
 }

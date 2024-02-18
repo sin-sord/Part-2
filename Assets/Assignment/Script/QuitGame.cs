@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class QuitGame : MonoBehaviour
 {
-    public void exitGame()
+    public void exitGame()  // if the player wants to quit the game, go back to the title scene
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex - 1) % SceneManager.sceneCountInBuildSettings;
