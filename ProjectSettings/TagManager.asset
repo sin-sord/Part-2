@@ -8,6 +8,7 @@ TagManager:
   - wall
   - thorn
   - coin
+  - end
   layers:
   - Default
   - TransparentFX
