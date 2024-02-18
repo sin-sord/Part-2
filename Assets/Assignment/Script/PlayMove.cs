@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayMove : MonoBehaviour
 {
@@ -88,7 +89,10 @@ public class PlayMove : MonoBehaviour
             {
             death = true;
             Anim.SetTrigger("Dead");
-            }
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+            SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
+        }
     }
 
     public void scoreCoin(Collider2D collision)
@@ -97,6 +101,12 @@ public class PlayMove : MonoBehaviour
         {
             Destroy(collision.gameObject);
             score++;
+            if (score >= 5)
+            {
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+                SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
+            }
         }
     }
 
