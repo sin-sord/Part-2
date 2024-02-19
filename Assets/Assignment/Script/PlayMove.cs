@@ -23,6 +23,9 @@ public class PlayMove : MonoBehaviour
     private int score = 0;
     public Text scoreText;
 
+    public float timeDeath = 0f;
+    public float timeDeathMax = 5f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,14 +38,27 @@ public class PlayMove : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
 
-        if (death) return;  // if death occurs then stop this function
+     //   if (death) return;  // if death occurs then stop this function
         if (Input.GetMouseButtonDown(0))   // if the left mouse button is pressed then have the player move to where the mouse clicked.
         {
             guidePlayer = Camera.main.ScreenToWorldPoint(Input.mousePosition);  // the guide is where the mouse is pressed on the screen
 
         }
-
         Anim.SetFloat("Movement", movePlayer.magnitude);  // plays the movement animation clip
+
+        if(death == true)
+        {
+            timeDeath += 1 * Time.deltaTime;
+
+            if (timeDeath >= timeDeathMax)
+            {
+
+                // if the player is killed then go to the next scene, Game Over
+                int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+                SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
+            }
+        }
     }
 
     private void FixedUpdate()   // Movement for the player
@@ -86,12 +102,35 @@ public class PlayMove : MonoBehaviour
             {
             death = true;
             Anim.SetTrigger("Dead");
+            
+           /* timeDeath = timeDeath *  Time.deltaTime;
+
+            if (timeDeath >= timeDeathMax)
+            {
+            
+            // if the player is killed then go to the next scene, Game Over
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+            SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
+            }*/
+          
+        }
+    }
+
+   
+/*    public void timeDead()
+    {
+        timeDeath = timeDeath * Time.deltaTime;
+
+        if (timeDeath >= timeDeathMax)
+        {
+
             // if the player is killed then go to the next scene, Game Over
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
             SceneManager.LoadScene(nextSceneIndex);  // loads the next scene
         }
-    }
+    }*/
 
     public void scoreCoin(Collider2D collision)
     {
