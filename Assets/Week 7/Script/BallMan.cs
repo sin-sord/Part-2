@@ -42,7 +42,7 @@ public class BallMan : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        rb.AddForce(direction * speed, ForceMode2D.Impulse);
+        rb.AddForce(direction * speed, ForceMode2D.Impulse);  // move the rigidbody by direction * speed, by its mass
     }
 }
 

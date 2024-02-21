@@ -14,12 +14,12 @@ public class Controller : MonoBehaviour
     public static BallMan CurrentSelection { get; private set; } 
     public static void SetCurrentSelection(BallMan player)
     {
-        if(CurrentSelection != null)
+        if(CurrentSelection != null)  // if the CurrentSelection is nothing, revert to OG color
         {
             CurrentSelection.Selected(false);
         }
-        CurrentSelection = player;
-        CurrentSelection.Selected(true);
+        CurrentSelection = player;  //  CurrentSelection is the player
+        CurrentSelection.Selected(true);  // change color if true
     }
 
     private void FixedUpdate()
@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour
         if(direction != Vector2.zero)
         {
             CurrentSelection.Move(direction);
-            direction = Vector2.zero;
+            direction = Vector2.zero;  // stops the player
         }
     }
 
@@ -51,7 +51,7 @@ public class Controller : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)CurrentSelection.transform.position).normalized * charge;
+            direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)CurrentSelection.transform.position).normalized * charge;  // moving the player the mouse where the mouse it, CurrentSelection = player (in this case Ballman)
         }
     }
 }
