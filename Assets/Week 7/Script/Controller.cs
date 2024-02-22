@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour
     public static float scoreSet = 0;
 
     public static BallMan CurrentSelection { get; private set; }
- //   public static Ball ScoreTrack { get; private set; }
+    public static Ball ScoreTrack { get; private set; }
 
     public static void SetCurrentSelection(BallMan player)
     {

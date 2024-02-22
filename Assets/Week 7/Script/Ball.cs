@@ -13,16 +13,16 @@ public class Ball : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-   //     ScoreGoal(false);
+        ScoreGoal(false);
 
     }
 
     void Update()
     {
-        //    scoreText.text = "Score: " + score;
+    //        scoreText.text = "Score: " + score;
     }
 
-/*    public void ScoreGoal(bool hit)
+    public void ScoreGoal(bool hit)
     {
         if (hit == true)
         {
@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
 
             Debug.Log("player score");
         }
-    }*/
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
