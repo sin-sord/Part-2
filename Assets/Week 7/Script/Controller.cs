@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Controller : MonoBehaviour
 {
@@ -10,8 +11,12 @@ public class Controller : MonoBehaviour
     float charge;
     public float maxCharge;
     Vector2 direction;
+    public TextMeshProUGUI scoreUpdate;
+    public static float scoreSet = 0;
 
-    public static BallMan CurrentSelection { get; private set; } 
+    public static BallMan CurrentSelection { get; private set; }
+ //   public static Ball ScoreTrack { get; private set; }
+
     public static void SetCurrentSelection(BallMan player)
     {
         if(CurrentSelection != null)  // if the CurrentSelection is nothing, revert to OG color
@@ -34,6 +39,8 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        scoreUpdate.text = "Score: " + scoreSet.ToString();  // if the player shoots the ball and scores they get a point
+
         if (CurrentSelection == null) return;
 
         if(Input.GetKeyDown(KeyCode.Space)) 
