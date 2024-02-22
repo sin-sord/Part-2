@@ -10,6 +10,8 @@ public class BallMan : MonoBehaviour
     public SpriteRenderer changecolor;
     Rigidbody2D rb;
     public float speed = 100;
+    public Color picked;
+    public Color unpicked;
 
 
     void Start()
@@ -32,11 +34,11 @@ public class BallMan : MonoBehaviour
     {
         if (selected == true)  // if the player is selected on MouseDown
         {
-            changecolor.color = Color.blue;  // change the color to blue
+            changecolor.color = picked;  // change the color to blue
         }
         else   // if the player is deselected on MouseUp
         {
-            changecolor.color = Color.red;  // return to OG color. return; is saying to end the function
+            changecolor.color = unpicked;  // return to OG color. return; is saying to end the function
         }      
     }
 
